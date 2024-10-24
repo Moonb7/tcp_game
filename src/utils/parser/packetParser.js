@@ -9,10 +9,12 @@ export const packetParser = (data) => {
 
   // 공통 패킷 구조를 디코딩
   const Packet = protoMessages.common.Packet;
+  // console.log('Packet', Packet);
   let packet;
   try {
+    console.log('data-----------------', data);
     packet = Packet.decode(data); // 디코드 하여 데이터를 원본상태로 돌린다.
-    console.log('packet', packet);
+    // console.log('packet', packet);
   } catch (e) {
     throw new CustomError(ErrorCodes.PACKET_DECODE_ERROR, '패킷 디코딩 중 오류가 발생했습니다.');
   }

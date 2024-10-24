@@ -4,4 +4,6 @@ export const PACKET_TYPE_LENGTH = 1; // 패킷 구조할떄 1바이트로 정했
 export const PACKET_TYPE = {
   PING: 0,
   NORMAL: 1,
+  GAME_START: 2,
+  LOCATION: 3,
 };

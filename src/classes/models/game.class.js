@@ -1,6 +1,10 @@
+import {
+  createLocationPacket,
+  gameStartNotification,
+} from '../../utils/notification/game.notification.js';
 import IntervalManager from './managers/interval.manager.js';
 
-const MAX_PLAYERS = 4; // 현재 게임 방에 입장가능한 플레이어 수
+const MAX_PLAYERS = 2; // 현재 게임 방에 입장가능한 플레이어 수
 
 // 하나의 게임 자체를 관리할 클래스
 class Game {
@@ -40,8 +44,36 @@ class Game {
     }
   }
 
+  /**
+   * 게임 세션에 참가한 유저 중 가장 높은 레이턴시를 가진 유저를 찾아 레이턴시를 반환합니다.
+   * @returns maxLatency 가장 높은 레이턴시 반환
+   */
+  getMaxLatency() {
+    let maxLatency = 0;
+    this.users.forEach((user) => {
+      maxLatency = Math.max(maxLatency, user.latency);
+    });
+    return maxLatency;
+  }
+
   startGame() {
     this.state = 'inProgress';
+    const startPacket = gameStartNotification(this.id, Date.now());
+
+    this.users.forEach((user) => {
+      user.socket.write(startPacket);
+    });
+  }
+
+  getAllLocation() {
+    const maxLatency = this.getMaxLatency();
+
+    const locationData = this.users.map((user) => {
+      const { x, y } = user.calculatePosition(maxLatency);
+      return { id: user.id, x, y };
+    });
+
+    return createLocationPacket(locationData);
   }
 }
 
