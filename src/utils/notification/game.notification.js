@@ -17,12 +17,12 @@ const makeNotification = (message, type) => {
   const packetType = Buffer.alloc(config.packet.typeLength);
   packetType.writeUInt8(type, 0);
 
-  return Buffer.concat([packetLength, packetType]);
+  return Buffer.concat([packetLength, packetType, message]);
 };
 
 export const createPingPacket = (timestamp) => {
   const protoMessages = getProtoMessages();
-  const ping = protoMessages.common.ping;
+  const ping = protoMessages.common.Ping;
 
   const payload = { timestamp };
   const message = ping.create(payload);
