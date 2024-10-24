@@ -20,7 +20,7 @@ const initialHandler = async ({ socket, userId, payload }) => {
       await updateUserLogin(user.id);
     }
 
-    addUser(socket, deviceId); // UUID를 현재 deviceId를 사용하고 있습니다. 이 deviceId 또한 고유한 ID 값입니다.
+    addUser(socket, user.id); // UUID를 현재 deviceId를 사용하고 있습니다. 이 deviceId 또한 고유한 ID 값입니다.
 
     const initialResponse = createResponse(
       HANDLER_IDS.INITIAL,

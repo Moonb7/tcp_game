@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package game;
+
+// 게임 생성 핸들러 payload 클라에서 게임 생성을 요청할때 보내줄 패킷 구조입니다.
+message CreateGamePayload {
+    int64 timestamp = 1;       // 게임 생성 시간
+}
+
+message JoinGamePayload {
+    string gameId = 1;
+    int64 timestamp = 2;
+}

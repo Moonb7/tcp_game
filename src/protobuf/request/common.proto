@@ -10,3 +10,7 @@ message Packet {
   uint32 sequence = 4;       // 유저의 호출 수 (42억)
   bytes payload = 5;         // 실제 데이터
 }
+
+message Ping {
+  int64 timestamp = 1;
+}

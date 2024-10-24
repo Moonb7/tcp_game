@@ -36,5 +36,5 @@ export const createResponse = (handlerId, responseCode, data = null, userId) => 
   const packetType = Buffer.alloc(config.packet.typeLength);
   packetType.writeUInt8(PACKET_TYPE.NORMAL, 0);
 
-  return Buffer.concat([packetLength, packetType, buffer]);
+  return Buffer.concat([packetLength, packetType, buffer]); // 헤더(패킷 길이 + 패킷 타입)와 보낼 버퍼까지 합쳐서 반환합니다.
 };
